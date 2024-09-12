@@ -25,9 +25,10 @@ body {
 }
 
 h1 {
-   text-align: center;
+    text-align: center;
     font-family: Georgia, 'Times New Roman', Times, serif;
 }
+
 /* TASKS */
 .taskListContainer {
     width: 900px;
@@ -125,12 +126,18 @@ h1 {
 
 button {
     margin: 0.5em;
+    border: 2px solid rgba(0, 0, 0, 0.2); /* Default border */
+    opacity: 1; /* Default opacity */
+    border-radius: 8px; /* For consistent button shape */
 }
 
-.pomodoro-text {
-    color: #FF4F00;
+/* Styles for specific buttons */
+#brownNoiseButton.active {
+    border-color: rgba(255, 79, 0, 0); /* Invisible when active */
+    opacity: 0.5; /* Example of visual feedback */
 }
 
-.break-text {
-    color: #4CAF50;
+#nsdrButton.active {
+    border-color: rgba(255, 79, 0, 0); /* Invisible when active */
+    opacity: 0.5; /* Example of visual feedback */
 }
