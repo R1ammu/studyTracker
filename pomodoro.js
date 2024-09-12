@@ -18,7 +18,6 @@ const pauseButton = document.getElementById('pauseButton');
 const skipButton = document.getElementById('skipButton');
 const clockElement = document.getElementById('clock');
 const pomodoroCounterDisplay = document.getElementById('pomodoroCounter');
-const brownNoise = document.getElementById('brownNoise');
 const notificationSound = document.getElementById('notificationSound');
 
 // Initialize Pomodoro counter from local storage
@@ -57,8 +56,9 @@ function startTimer() {
     // Set the timer display color
     timerDisplay.style.color = currentPhase === 'pomodoro' ? '#FF4F00' : '#4caf50';
 
+    // Handle audio in `audio.js`
     if (currentPhase === 'pomodoro') {
-        brownNoise.play();
+        playBrownNoise();
     }
 
     timer = setInterval(() => {
@@ -70,8 +70,6 @@ function startTimer() {
             clearInterval(timer);
             isRunning = false;
             remainingTime = 0;
-            brownNoise.pause();
-            brownNoise.currentTime = 0;
             handleEndOfSession();
         }
     }, 1000);
@@ -84,12 +82,11 @@ function togglePause() {
             // Resume the timer
             startTimer();
         } else {
-            // Pause the timer and reset the brown noise
+            // Pause the timer
             clearInterval(timer);
             isPaused = true;
             updateButtonStyles();
-            brownNoise.pause();
-            brownNoise.currentTime = 0; // Reset brown noise to start
+            stopBrownNoise(); // Pause brown noise in `audio.js`
         }
     }
 }
@@ -101,8 +98,7 @@ function skipSession() {
         if (timer) {
             clearInterval(timer);
         }
-        brownNoise.pause();
-        brownNoise.currentTime = 0;
+        stopBrownNoise(); // Stop brown noise in `audio.js`
 
         // Prepare for the next Pomodoro session
         currentPhase = 'pomodoro';
